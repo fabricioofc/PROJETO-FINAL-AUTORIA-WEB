@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Início - Blog de Negócios{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-5">
+        <div class="col-lg-8">
+            <h1 class="mb-3">Bem-vindo ao Blog de Negócios</h1>
+            <p class="lead text-muted">Artigos e insights sobre negócios, empreendedorismo e inovação</p>
+            {% if search_query %}
+                <div class="mt-4">
+                    <h3>Resultados para: "{{ search_query }}"</h3>
+                    <a href="/" class="btn btn-sm btn-secondary">Limpar busca</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if posts %}
+        <div class="row">
+            {% for post in posts %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        {% if post.Imagem %}
+                            <img src="{{ url_for('static', filename='img/posts/' + post.Imagem) }}" class="card-img-top" alt="{{ post.Titulo }}" style="height: 200px; object-fit: cover;">
+                        {% endif %}
+                        <div class="card-body">
+                            {% if post.Categoria %}
+                                <span class="badge bg-secondary mb-2">{{ post.Categoria }}</span>
+                            {% endif %}
+                            <h5 class="card-title">{{ post.Titulo }}</h5>
+                            <p class="card-text text-muted">{{ post.Conteudo[:120] }}...</p>
+                            <hr>
+                            <small class="text-muted d-block mb-1">
+                                Autor: <strong>{{ post.Autor or 'Anônimo' }}</strong>
+                            </small>
+                            <small class="text-muted">
+                                Publicado em: {{ post.Data_Publicacao | format_datetime }}
+                            </small>
+                        </div>
+                        <div class="card-footer bg-white border-0">
+                            <a href="/post/{{ post.Slug }}" class="btn btn-sm btn-dark w-100">Ler Artigo Completo</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-light text-center border">
+            <p class="mb-0">Nenhum artigo encontrado.</p>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

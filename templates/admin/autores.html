@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block title %}Autores - Admin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <h1>Autores</h1>
+        </div>
+        <div class="col-lg-4 text-end">
+            <a href="/admin/autores/criar" class="btn btn-primary">+ Novo Autor</a>
+            <a href="/admin" class="btn btn-secondary">← Voltar</a>
+        </div>
+    </div>
+
+    {% if autores %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Bio</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for autor in autores %}
+                        <tr>
+                            <td>{{ autor.Nome }}</td>
+                            <td>{{ autor.Email }}</td>
+                            <td>{{ autor.Bio[:50] if autor.Bio else '-' }}</td>
+                            <td>
+                                <a href="/admin/autores/editar/{{ autor.ID_Autor }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="/admin/autores/deletar/{{ autor.ID_Autor }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Deletar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Nenhum autor encontrado. <a href="/admin/autores/criar">Criar novo autor</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

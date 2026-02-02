@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}Editar Artigo - Admin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="mb-4">Editar Artigo</h1>
+
+            <form method="POST" class="needs-validation">
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" value="{{ post.Titulo }}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="slug" class="form-label">Slug (URL amigável)</label>
+                    <input type="text" class="form-control" id="slug" name="slug" value="{{ post.Slug }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="imagem" class="form-label">Nome do Arquivo da Imagem</label>
+                    <input type="text" class="form-control" id="imagem" name="imagem" value="{{ post.Imagem or '' }}" placeholder="exemplo: post1.jpg">
+                    <small class="text-muted">As imagens devem estar na pasta static/img/posts/</small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria_id" class="form-label">Categoria</label>
+                        <select class="form-select" id="categoria_id" name="categoria_id">
+                            <option value="">Selecione uma categoria</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.ID_Categoria }}" {% if categoria.ID_Categoria == post.ID_Categoria %}selected{% endif %}>{{ categoria.Nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="autor_id" class="form-label">Autor</label>
+                        <select class="form-select" id="autor_id" name="autor_id">
+                            <option value="">Selecione um autor</option>
+                            {% for autor in autores %}
+                                <option value="{{ autor.ID_Autor }}" {% if autor.ID_Autor == post.ID_Autor %}selected{% endif %}>{{ autor.Nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="conteudo" class="form-label">Conteúdo</label>
+                    <textarea class="form-control" id="conteudo" name="conteudo" rows="8" required>{{ post.Conteudo }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" required>
+                        <option value="Rascunho" {% if post.Status == 'Rascunho' %}selected{% endif %}>Rascunho</option>
+                        <option value="Publicado" {% if post.Status == 'Publicado' %}selected{% endif %}>Publicado</option>
+                        <option value="Arquivado" {% if post.Status == 'Arquivado' %}selected{% endif %}>Arquivado</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Atualizar Artigo</button>
+                    <a href="/admin/posts" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+
+{% block title %}Criar Artigo - Admin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            <h1 class="mb-4">Novo Artigo</h1>
+
+            <form method="POST" class="needs-validation">
+                <div class="mb-3">
+                    <label for="titulo" class="form-label">Título</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="slug" class="form-label">Slug (URL amigável)</label>
+                    <input type="text" class="form-control" id="slug" name="slug" required>
+                    <small class="text-muted">Exemplo: meu-primeiro-post</small>
+                </div>
+                <div class="mb-3">
+                    <label for="imagem" class="form-label">Nome do Arquivo da Imagem</label>
+                    <input type="text" class="form-control" id="imagem" name="imagem" placeholder="exemplo: post1.jpg">
+                    <small class="text-muted">As imagens devem estar na pasta static/img/posts/</small>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="categoria_id" class="form-label">Categoria</label>
+                        <select class="form-select" id="categoria_id" name="categoria_id">
+                            <option value="">Selecione uma categoria</option>
+                            {% for categoria in categorias %}
+                                <option value="{{ categoria.ID_Categoria }}">{{ categoria.Nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label for="autor_id" class="form-label">Autor</label>
+                        <select class="form-select" id="autor_id" name="autor_id">
+                            <option value="">Selecione um autor</option>
+                            {% for autor in autores %}
+                                <option value="{{ autor.ID_Autor }}">{{ autor.Nome }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="conteudo" class="form-label">Conteúdo</label>
+                    <textarea class="form-control" id="conteudo" name="conteudo" rows="8" required></textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select class="form-select" id="status" name="status" required>
+                        <option value="Rascunho">Rascunho</option>
+                        <option value="Publicado">Publicado</option>
+                        <option value="Arquivado">Arquivado</option>
+                    </select>
+                </div>
+
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-primary">Criar Artigo</button>
+                    <a href="/admin/posts" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

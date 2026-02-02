@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.Titulo }} - Blog de Negócios{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Início</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Artigo</li>
+                </ol>
+            </nav>
+
+            <article class="mt-4">
+                <header class="mb-4">
+                    {% if post.Categoria %}
+                        <span class="badge bg-secondary mb-2">{{ post.Categoria }}</span>
+                    {% endif %}
+                    <h1 class="fw-bold mb-3">{{ post.Titulo }}</h1>
+                    {% if post.Imagem %}
+                        <img src="{{ url_for('static', filename='img/posts/' + post.Imagem) }}" class="img-fluid rounded mb-4" alt="{{ post.Titulo }}" style="width: 100%; height: 400px; object-fit: cover;">
+                    {% endif %}
+                    <div class="text-muted mb-4">
+                        <span>Autor: <strong>{{ post.Autor or 'Anônimo' }}</strong></span>
+                        <span class="mx-2">|</span>
+                        <span>Publicado em: {{ post.Data_Publicacao | format_datetime }}</span>
+                    </div>
+                </header>
+
+                <div class="content lead" style="line-height: 1.8; text-align: justify; font-size: 1.1rem;">
+                    {{ post.Conteudo }}
+                </div>
+
+                <footer class="mt-5 pt-4 border-top">
+                    <a href="/" class="btn btn-outline-dark">Voltar para a lista de artigos</a>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+{% endblock %}

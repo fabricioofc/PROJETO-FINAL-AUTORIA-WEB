@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Categorias - Admin{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-lg-8">
+            <h1>Categorias</h1>
+        </div>
+        <div class="col-lg-4 text-end">
+            <a href="/admin/categorias/criar" class="btn btn-primary">+ Nova Categoria</a>
+            <a href="/admin" class="btn btn-secondary">← Voltar</a>
+        </div>
+    </div>
+
+    {% if categorias %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Nome</th>
+                        <th>Descrição</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in categorias %}
+                        <tr>
+                            <td>{{ categoria.Nome }}</td>
+                            <td>{{ categoria.Descricao[:50] if categoria.Descricao else '-' }}</td>
+                            <td>
+                                <a href="/admin/categorias/editar/{{ categoria.ID_Categoria }}" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="/admin/categorias/deletar/{{ categoria.ID_Categoria }}" class="btn btn-sm btn-danger" onclick="return confirm('Tem certeza?')">Deletar</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="alert alert-info">
+            Nenhuma categoria encontrada. <a href="/admin/categorias/criar">Criar nova categoria</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

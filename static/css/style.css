@@ -1,0 +1,41 @@
+/* Estilos customizados */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.card {
+    border: none;
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.post-content {
+    line-height: 1.8;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f5f5f5;
+}
+
+footer {
+    margin-top: auto;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+}
+
+.btn-sm {
+    font-size: 0.875rem;
+}
